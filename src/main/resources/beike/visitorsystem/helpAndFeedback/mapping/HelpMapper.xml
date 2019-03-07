@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.helpAndFeedback.mapper.HelpMapper">
+    <resultMap id="HelpMap" type="beike.visitorsystem.helpAndFeedback.model.Help">
+        <id property="id" column="id"/>
+        <result property="question" column="question"/>
+        <result property="answer" column="answer"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <insert id="addHelp" >
+        insert into bk_visitor_helps(id,question,answer,create_time,update_time)
+        values(#{help.id},#{help.question},#{help.answer},#{help.createTime},#{help.updateTime})
+    </insert>
+
+    <update id="updateHelp">
+         update bk_visitor_helps set question = #{help.question}, answer = #{help.answer}, update_time = #{help.updateTime}
+         where id = #{help.id}
+    </update>
+
+    <delete id="deleteHelpById">
+        delete from bk_visitor_helps where id = #{id}
+    </delete>
+
+    <select id="getHelps" resultMap="HelpMap">
+        select *
+        FROM bk_visitor_helps
+        ORDER BY id
+        limit #{page} , #{number};
+    </select>
+
+    <select id="getHelpDetailById" resultMap="HelpMap">
+        select *
+        FROM bk_visitor_helps
+        WHERE id = #{id}
+    </select>
+
+    <select id="getHelpList" resultMap="HelpMap">
+        SELECT * FROM bk_visitor_helps;
+    </select>
+
+    <select id="getSumOfHelps" resultType="int">
+        SELECT count(id)
+        FROM bk_visitor_helps
+    </select>
+
+</mapper>

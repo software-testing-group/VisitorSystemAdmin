@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.infrastructure.mapper.InfrastructureTypeMapper">
+    <resultMap id="InfrastructureTypeMap" type="beike.visitorsystem.infrastructure.model.InfrastructureType">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="infrastructureList" ofType="beike.visitorsystem.infrastructure.model.Infrastructure">
+            <id property="id" column="iid"/>
+            <result property="name" column="iname"/>
+            <result property="typeId" column="iti"/>
+            <result property="longitude" column="ilong"/>
+            <result property="latitude" column="ila"/>
+            <result property="createTime" column="ict"/>
+            <result property="updateTime" column="iut"/>
+        </collection>
+    </resultMap>
+
+    <insert id="addInfrastructureType" >
+        insert into bk_visitor_infrastructure_type(id,name,create_time,update_time)
+        values(#{it.id},#{it.name},#{it.createTime},#{it.updateTime})
+    </insert>
+
+    <update id="updateInfrastructureType">
+         update bk_visitor_infrastructure_type set name = #{it.name}, update_time = #{it.updateTime}
+         where id = #{it.id}
+    </update>
+
+    <delete id="deleteInfrastructureType">
+        delete from bk_visitor_infrastructure_type where id = #{id}
+    </delete>
+
+    <select id="getInfrastructureTypes" resultMap="InfrastructureTypeMap">
+        SELECT * FROM bk_visitor_infrastructure_type
+        ORDER BY id
+        limit #{page} , #{number};
+    </select>
+
+    <select id="getInfrastructureTypeDetailById" resultMap="InfrastructureTypeMap">
+        select it.*,i.id iid,i.name iname,i.type_id iti,i.longitude ilong,i.latitude ila,i.create_time ict,i.update_time iut
+        FROM bk_visitor_infrastructure_type it LEFT JOIN
+        (select * FROM bk_visitor_infrastructure) i ON  it.id = i.type_id
+        WHERE it.id = #{id}
+    </select>
+    <select id="getInfrastructureTypeList" resultMap="InfrastructureTypeMap">
+        SELECT * FROM bk_visitor_infrastructure_type;
+    </select>
+
+    <select id="getSumOfInfrastructureTypes" resultType="int">
+        SELECT count(id)
+        FROM bk_visitor_infrastructure_type
+    </select>
+</mapper>

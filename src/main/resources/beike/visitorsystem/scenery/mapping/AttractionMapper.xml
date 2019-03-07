@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.scenery.mapper.AttractionMapper" >
+    <resultMap type="beike.visitorsystem.scenery.model.Attraction" id="AttractionMap">
+        <id property="id" column="id" />
+        <result property="orderNumber" column="order_number"/>
+        <result property="name" column="name"/>
+        <result property="textIntroduction" column="text_introduction"/>
+        <result property="openTime" column="open_time"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="readCount" column="read_count"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="images" ofType="beike.visitorsystem.scenery.model.AttractionImage">
+            <id property="id" column="iid"/>
+            <result property="attractionId" column="iaid"/>
+            <result property="imageUrl" column="iurl"/>
+            <result property="isDeleted" column="iisd"/>
+            <result property="createTime" column="ict"/>
+            <result property="updateTime" column="iut"/>
+        </collection>
+        <collection property="audios" ofType="beike.visitorsystem.scenery.model.AttractionAudio">
+            <id property="id" column="aid"/>
+            <result property="attractionId" column="aaid"/>
+            <result property="type" column="at"/>
+            <result property="audioUrl" column="aurl"/>
+            <result property="isDeleted" column="aisd"/>
+            <result property="createTime" column="act"/>
+            <result property="updateTime" column="aut"/>
+        </collection>
+    </resultMap>
+
+<!-- modified by YuLei -->
+    <insert id="addAttraction" parameterType="beike.visitorsystem.scenery.model.Attraction" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bk_visitor_attractions(id,order_number,name,text_introduction,open_time,longitude,latitude,read_count,is_deleted,create_time,update_time)
+        values(#{id},#{orderNumber},#{name},#{textIntroduction},#{openTime},#{longitude},#{latitude},#{readCount},#{isDeleted},now(),now());
+    </insert>
+    <update id="deleteAttractionById" parameterType="BigInteger">
+    UPDATE bk_visitor_attractions SET is_deleted=1,update_time=NOW() WHERE id=#{attractionId};
+    </update>
+    <update id="updateAttraction">
+    UPDATE bk_visitor_attractions SET order_number = #{attraction.orderNumber},name = #{attraction.name},text_introduction = #{attraction.textIntroduction},open_time = #{attraction.openTime},longitude = #{attraction.longitude},latitude = #{attraction.latitude},update_time = now()
+    WHERE id=#{attraction.id};
+    </update>
+    <select id="getAllAttraction" resultMap="AttractionMap">
+    SELECT *
+    FROM bk_visitor_attractions
+    WHERE is_deleted=0
+    ORDER BY id
+    limit #{count} , #{number};
+    </select>
+    <select id="getAttractionAndImagesById" resultMap="AttractionMap">
+        select a.*,i.id iid,i.attraction_id iaid,i.image_url iurl,i.is_deleted iisd,i.create_time ict,i.update_time iut
+        FROM bk_visitor_attractions a LEFT JOIN
+        (select * FROM bk_visitor_attraction_images WHERE is_deleted=0) i ON  a.id = i.attraction_id
+        WHERE a.id = #{id}
+    </select>
+    <select id="getAttractionAndAudiosById" resultMap="AttractionMap">
+        select at.*,a.id aid,a.attraction_id aaid,a.type at,a.audio_url aurl,a.is_deleted aisd,a.create_time act,a.update_time aut
+        FROM bk_visitor_attractions at LEFT JOIN
+        (select * FROM bk_visitor_attraction_audios WHERE is_deleted=0) a ON  at.id = a.attraction_id
+        WHERE at.id = #{id}
+    </select>
+    <select id="getAttractionSummaryById" resultMap="AttractionMap">
+    SELECT *
+    FROM bk_visitor_attractions
+    WHERE id=#{id}
+    </select>
+
+    <select id="getSumOfAttractions" resultType="int">
+        SELECT count(id)
+        FROM bk_visitor_attractions
+        WHERE is_deleted=0
+    </select>
+<!-- modified by YuLei -->
+
+
+    <select id="getSumAttraction" resultType="int">
+    SELECT COUNT(id) FROM bk_visitor_attractions WHERE is_deleted=0;
+    </select>
+    <select id="getAllAttractionNumber" resultType="java.util.ArrayList">
+    SELECT attraction_number FROM bk_visitor_attractions WHERE is_deleted=0;
+    </select>
+    <select id="getAllAttractionTitle" resultMap="AttractionMap">
+    SELECT * FROM bk_visitor_attractions WHERE is_deleted=0;
+    </select>
+        <select id="getAttractionByTitle" parameterType="String" resultMap="AttractionMap">
+    SELECT * FROM bk_visitor_attractions WHERE is_deleted=0 AND title=#{title};
+    </select>
+
+    <select id="getAttractionById" parameterType="BigInteger" resultMap="AttractionMap">
+    SELECT a.*,a_i.id image_id,a_i.attraction_id,a_i.image_url,a_i.is_deleted d,a_i.create_time ct,a_i.update_time ut
+    FROM bk_visitor_attractions a LEFT JOIN (SELECT * FROM bk_visitor_attraction_images WHERE is_deleted=0 ) a_i ON a.id=a_i.attraction_id
+    WHERE a.is_deleted=0 AND a.id=#{attractionId};
+    </select>
+    <update id="updateVoiceIntroductionById">
+    UPDATE bk_visitor_attractions SET voice_introduction=#{voiceIntroduction},update_time=NOW()
+    WHERE id=#{attractionId} AND is_deleted=0;
+    </update>
+    <update id="updateTextIntroductionById">
+    UPDATE bk_visitor_attractions SET text_introduction=#{textIntroduction},update_time=NOW()
+    WHERE id=#{attractionId} AND is_deleted=0;
+    </update>
+    <update id="updateTitleById">
+    UPDATE bk_visitor_attractions SET title=#{title},update_time=NOW()
+    WHERE id=#{attractionId} AND is_deleted=0;
+    </update>
+    <update id="updateAttractionNumberById">
+    UPDATE bk_visitor_attractions SET attraction_number=#{attractionNumber},update_time=NOW()
+    WHERE id=#{attractionId} AND is_deleted=0;
+    </update>
+
+    <select id="getAttractionByName" resultMap="AttractionMap">
+        SELECT * FROM bk_visitor_attractions WHERE is_deleted=0 AND name LIKE #{name};
+    </select>
+    <select id="getAttractionsByRouteId" resultMap="AttractionMap">
+        select * from bk_visitor_attractions as a left join bk_visitor_routes_bind_attrs as b on a.id=b.attraction_id where a.is_deleted =0 and b.route_id= #{route_id} order by b.sequence;
+    </select>
+    <select id="getOtherAttractions" resultMap="AttractionMap">
+        SELECT * FROM bk_visitor_attractions WHERE id != #{id} AND is_deleted=0;
+    </select>
+    <update id="updateAttractionReadCountById">
+        update bk_visitor_attractions set read_count = #{read_count} where id = #{id};
+    </update>
+    <select id="getAimAttractionById" resultMap="AttractionMap">
+        SELECT * FROM bk_visitor_attractions WHERE id = #{id} AND is_deleted=0;
+    </select>
+    <select id="getAttractions" resultMap="AttractionMap">
+        SELECT * FROM bk_visitor_attractions WHERE is_deleted=0;
+    </select>
+</mapper>

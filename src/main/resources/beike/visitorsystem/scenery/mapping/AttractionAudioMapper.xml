@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.scenery.mapper.AttractionAudioMapper">
+    <resultMap id="AttractionAudioMap" type="beike.visitorsystem.scenery.model.AttractionAudio">
+        <id property="id" column="id"/>
+        <result property="attractionId" column="attraction_id"/>
+        <result property="type" column="type"/>
+        <result property="audioUrl" column="audio_url"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <update id="deleteAudioById" parameterType="BigInteger">
+      UPDATE bk_visitor_attraction_audios SET is_deleted=1,update_time=NOW()
+      WHERE id=#{audioId} AND is_deleted=0;
+    </update>
+    <update id="updateAudioById" >
+      UPDATE bk_visitor_attraction_audios SET type=#{type},audio_url=#{audioUrl},update_time=NOW()
+      WHERE id=#{audioId} AND is_deleted=0;
+    </update>
+    <insert id="addAudio" parameterType="beike.visitorsystem.scenery.model.AttractionAudio" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO bk_visitor_attraction_audios(id,attraction_id,type,audio_url,is_deleted,create_time,update_time) values(#{id},#{attractionId},#{type},#{audioUrl},0,now(),now());
+    </insert>
+
+
+    <select id="getAttractionAudioesByAttractionId" resultMap="AttractionAudioMap">
+        SELECT * FROM bk_visitor_attraction_audios WHERE attraction_id=#{attraction_id} AND is_deleted=0;
+    </select>
+
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.infrastructure.mapper.InfrastructureMapper">
+    <resultMap id="InfrastructureMap" type="beike.visitorsystem.infrastructure.model.Infrastructure">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="typeId" column="type_id"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <insert id="addInfrastructure" >
+        insert into bk_visitor_infrastructure(id,name,type_id,longitude,latitude,create_time,update_time)
+        values(#{i.id},#{i.name},#{i.typeId},#{i.longitude},#{i.latitude},#{i.createTime},#{i.updateTime})
+    </insert>
+
+    <update id="updateInfrastructure">
+         update bk_visitor_infrastructure set name = #{i.name}, longitude = #{i.longitude}, latitude = #{i.latitude},update_time = #{i.updateTime}
+         where id = #{i.id};
+    </update>
+
+    <delete id="deleteInfrastructureById">
+        delete from bk_visitor_infrastructure where id = #{id};
+    </delete>
+
+    <delete id="deleteInfrastructuresByInfrastructureTypeId">
+        delete from bk_visitor_infrastructure where type_id = #{typeId};
+    </delete>
+
+    <select id="getInfrastructuresByTypeId" resultMap="InfrastructureMap">
+        SELECT * FROM bk_visitor_infrastructure WHERE type_id = #{typeId};
+    </select>
+
+    <select id="getInfrastructureDetailById" resultMap="InfrastructureMap">
+        select *
+        FROM bk_visitor_infrastructure
+        WHERE id = #{id};
+    </select>
+
+
+</mapper>

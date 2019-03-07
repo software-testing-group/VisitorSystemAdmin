@@ -1,0 +1,75 @@
+#attractionIntro {
+    width: 200px;
+    height: 100px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    vertical-align: top;
+}
+.new-form-input{
+    margin-bottom: 15px;
+}
+#openTime{
+    margin-right: 5px;
+}
+#closeTime{
+    margin-left: 5px;
+}
+
+.new-form-span{
+    margin-left: 25px;
+    width: 80px;
+    height: 15px;
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 15px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.picUrl{
+    color:#337ab7;
+    text-decoration: underline;
+}
+
+.new-position{
+    vertical-align: middle;
+}
+
+.remove-position{
+    vertical-align: middle;
+}
+
+#audio-table,#pic-table{
+    margin-left: 25px;
+    width: 85%;
+}
+
+.upload-wrapper{
+    font-size: 13px;
+    color: #abb29f;
+    letter-spacing: 0;
+    cursor: pointer;
+}
+
+#audio-table td {
+    max-width: 150px;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+#pic-table td {
+    max-width: 150px;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+#uploadAudioBtn{
+    font-family: PingFangSC-Medium;
+    font-size: 13px;
+}
+.new-table-input{
+    width:60px;
+}

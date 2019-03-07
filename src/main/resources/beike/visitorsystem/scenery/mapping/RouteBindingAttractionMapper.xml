@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.scenery.mapper.RouteBindingAttractionMapper" >
+    <resultMap type="beike.visitorsystem.scenery.model.RouteBindingAttraction" id="RouteBindingAttractionMap">
+        <id property="id" column="id" />
+        <result property="attractionId" column="attraction_id"/>
+        <result property="routeId" column="route_id"/>
+        <result property="sequence" column="sequence" />
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createTime" column="created_time"/>
+        <result property="updateTime" column="updated_time"/>
+    </resultMap>
+
+    <insert id="addRouteBindingAttraction">
+        insert into bk_visitor_routes_bind_attrs(id,attraction_id,route_id,sequence,is_deleted,create_time,update_time)
+        values(#{RBA.id},#{RBA.attractionId},#{RBA.routeId},#{RBA.sequence},#{RBA.isDeleted},#{RBA.createTime},#{RBA.updateTime})
+    </insert>
+
+    <update id="deleteRouteBindingAttractionByAttractionId">
+          update bk_visitor_routes_bind_attrs set is_deleted = 1 where route_id = #{routeId} and attraction_id = #{attractionId} and is_deleted=0
+    </update>
+
+    <update id="deleteRouteBindingAttractionsByRouteId">
+          update bk_visitor_routes_bind_attrs set is_deleted = 1 where  route_id = #{routeId} and is_deleted=0
+    </update>
+
+    <update id="updateOrderOfRouteBindingAttractionById">
+          update bk_visitor_routes_bind_attrs set sequence = #{order} where id = #{id} and is_deleted=0
+    </update>
+
+
+</mapper>

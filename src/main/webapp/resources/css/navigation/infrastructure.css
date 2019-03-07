@@ -1,0 +1,61 @@
+.new-form-span{
+    margin-left: 25px;
+    width: 80px;
+    height: 15px;
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 15px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.new-form-div{
+    margin-bottom: 15px;
+}
+
+.new-position{
+    vertical-align: middle;
+}
+
+.remove-position{
+    vertical-align: middle;
+}
+
+.add-content{
+    position: relative;
+    top: 80px;
+    left: 90px;
+    z-index: 1;
+    background: #FFFFFF;
+    box-shadow: 0 0 24px 0 rgba(0,0,0,0.12),0 24px 24px 0 rgb(0,0,0,0.24);
+    border-radius: 4px;
+    min-width: 446px;
+    width: 730px;
+    min-height: 100px;
+    margin:0px;
+    padding: 0px;
+}
+
+.infrastructure-name{
+    margin-bottom: 20px;
+}
+.infrastructure-input{
+    width: 110px;
+}
+.new-form-span-titude{
+    margin-left: 25px;
+    height: 15px;
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 15px;
+    display: inline-block;
+    overflow: hidden;
+}
+.infrastructure-name-input,#infrastructureTypeName{
+    width:150px;
+}
+.infrastructure-input.latitude{
+    margin-right: 10px;
+}

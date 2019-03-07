@@ -1,0 +1,272 @@
+.modal-header{
+	border: none;
+}
+.modal-footer{
+	border: none;
+}
+.demo-content{
+	position: relative;
+    top: 80px;
+    left: 90px;
+    z-index: 1;
+    background: #FFFFFF;
+    box-shadow: 0 0 24px 0 rgba(0,0,0,0.12),0 24px 24px 0 rgb(0,0,0,0.24);
+    border-radius: 4px;
+    width: 446px;
+    min-height: 100px;
+    margin:0px;
+    padding: 0px;
+}
+.demo-title{
+	position: relative;
+	left: 10px;
+	height: 16px;
+	font-family: PingFangSC-Medium;
+	font-size: 16px;
+	color: rgba(0,0,0,0.87);
+	letter-spacing: 0;
+	line-height: 16px;
+	font-weight: bold;
+}
+
+.place{
+	margin-left: 25px;
+	width: 55px;
+	height: 13px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	letter-spacing: 0;
+	line-height: 13px;
+}
+#placeNumber{
+	position: relative;
+	top: -27px;
+	left: 110px;
+	width: 200px;
+	height: 20px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	letter-spacing: 0;
+    line-height: 13px;
+    border: rgb(204, 204, 204) solid 1px;
+}
+#placeName{
+	position: relative;
+	top: -27px;
+	left: 110px;
+	width: 200px;
+	height: 20px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	letter-spacing: 0;
+    line-height: 13px;
+    border: rgb(204, 204, 204) solid 1px;
+}
+.intro{
+	margin-left: 110px;
+	margin-top: -25px;
+	width: 200px;
+	height: 100px;
+    font-size: 13px;
+}
+.placePic{
+	margin-left: 25px;
+	margin-top: 20px;
+	width: 55px;
+	height: 13px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	letter-spacing: 0;
+	line-height: 13px;
+}
+.picR{
+	margin-left: 110px;
+	margin-top: -27px;
+	width: 200px;
+	height: 20px;
+	border: rgb(204, 204, 204) solid 1px;
+}
+.choiceBtn{
+	margin-left: 180px;
+	margin-top: -10px;
+	width: 40px;
+	height: 52px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	letter-spacing: 0;
+	line-height: 52px;
+	border: none;
+	background: none;
+	outline: none;
+}
+#musicBtn{
+	margin-top: 22px;
+	/*filter:alpha(opacity=0);
+	opacity:0;
+	width: 0;
+	height: 0;*/
+}
+#Btn1{
+	margin-left: 185px;
+	margin-top: 10px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+}
+#Btn2{
+	margin-left: 185px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+}
+.modal-footer{
+	position: relative;
+	height: 52px;
+	border-top:1px solid #E0E0E0;
+	padding: 0px;
+}
+.quitBtn{
+	position: relative;
+	right: 42px;
+	width: 40px;
+	height: 52px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	color: rgba(0,0,0,0.40);
+	letter-spacing: 0;
+	line-height: 52px;
+	border: none;
+	background: none;
+	outline: none;
+}
+.sureBtn{
+	position: relative;
+	right: 32px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	color: #536DFE;
+	letter-spacing: 0;
+	line-height: 52px;
+	border: none;
+	background: none;
+	outline: none;
+}
+.numP{
+	position: relative;
+	left: 10px;
+	top: 20px;
+	width: 26px;
+	height: 13px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	color: rgba(0,0,0,0.54);
+	letter-spacing: 0;
+	line-height: 13px;
+}
+#num{
+	position: relative;
+	left: 10px;
+	top: 19px;
+	width: 107px;
+	height: 13px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	color: rgba(0,0,0,0.87);
+	letter-spacing: 0;
+	line-height: 13px;
+}
+.demo-body{
+	height: 28px;
+	margin: 0;
+	position: relative;
+	top: 17px;
+}
+.hr1{
+	position: relative;
+	top: 22px;
+	width: 446px;
+	height: 1px;
+	background: #E0E0E0;
+}
+#newitem{
+	position: relative;
+	top: 21px;
+	left: 20px;
+	height: 48px;
+	font-family: PingFangSC-Medium;
+	font-size: 13px;
+	color: #3F51B5;
+	letter-spacing: 0;
+	line-height: 48px;
+	border: none;
+	background: none;
+	outline: none;
+}
+.hr2{
+	position: relative;
+	top: 19px;
+	width: 446px;
+	height: 1px;
+	background: #E0E0E0;
+}
+.ulStyle{
+	margin-top: 30px;
+	position: relative;
+	height: 290px;
+	overflow-y: scroll;
+	padding: 0 20px;
+}
+.ulStyle li{
+	position: relative;
+	left: -15px;
+	height: 40px;
+}
+.inputDiv{
+	line-height: 40px;
+	height: auto;
+	min-height: 40px;
+	border-bottom: 1px #E0E0E0 solid;
+	width: 390px;
+}
+.input1{
+	border: none;
+	border-bottom: 1px solid #E0E0E0;
+	outline: none;
+	height: 40px;
+}
+.button{
+	float: right;
+}
+.yuBtn{
+	cursor: pointer;
+	margin-right: 5px;
+}
+.confirm{
+	color: #567DEF;
+	
+	cursor: pointer;
+}
+.list-group-item{
+	border: none;
+	cursor: pointer;
+	background: transparent;
+}
+.scenechoose{
+	padding: 10px 15px;
+}
+.material-icons{
+	cursor: pointer;
+}
+.cell{
+	height: auto;
+	width: 390px;
+	min-height: 40px;
+	line-height: 40px;
+	border-bottom: 1px solid #E0E0E0;
+	margin-bottom: 5px;
+}
+.winclose{
+	line-height: 16px;
+	vertical-align: middle;
+	float: right;
+}

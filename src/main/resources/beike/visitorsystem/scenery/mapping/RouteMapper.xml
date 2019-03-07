@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.scenery.mapper.RouteMapper" >
+   <resultMap type="beike.visitorsystem.scenery.model.Route" id="RouteMap">
+           <id property="id" column="id" />
+           <result property="routeName" column="route_name"/>
+           <result property="content" column="content"/>
+           <result property="time" column="time"/>
+           <result property="useCount" column="use_count"/>
+           <result property="polyline" column="polyline"/>
+           <result property="isDeleted" column="is_deleted"/>
+           <result property="createTime" column="create_time"/>
+           <result property="updateTime" column="update_time"/>
+       <collection property="routeBindingAttractionList" ofType="beike.visitorsystem.scenery.model.RouteBindingAttraction">
+           <id property="id" column="bid" />
+           <result property="attractionId" column="attraction_id"/>
+           <result property="routeId" column="route_id"/>
+           <result property="sequence" column="sequence" />
+           <result property="isDeleted" column="b_is_deleted"/>
+           <result property="createTime" column="b_create_time"/>
+           <result property="updateTime" column="b_update_time"/>
+           <association property="attraction" javaType="beike.visitorsystem.scenery.model.Attraction">
+               <id property="id" column="aid" />
+               <result property="orderNumber" column="order_number"/>
+               <result property="name" column="name"/>
+               <result property="textIntroduction" column="text_introduction"/>
+               <result property="openTime" column="open_time"/>
+               <result property="longitude" column="longitude"/>
+               <result property="latitude" column="latitude"/>
+               <result property="isDeleted" column="a_is_deleted"/>
+               <result property="readCount" column="read_count"/>
+               <result property="createTime" column="a_create_time"/>
+               <result property="updateTime" column="a_update_time"/>
+           </association>
+       </collection>
+
+   </resultMap>
+<!--modified by YuLei-->
+<insert id="addRoute" parameterType="beike.visitorsystem.scenery.model.Route">
+INSERT INTO bk_visitor_routes(id,route_name,content,time,use_count,polyline,is_deleted,create_time,update_time) VALUES(#{id},#{routeName},#{content},#{time},#{useCount},#{polyline},0,now(),now());
+</insert>
+<update id="updateRoute" >
+UPDATE bk_visitor_routes SET route_name=#{route.routeName},content=#{route.content},time=#{route.time},polyline=#{route.polyline},update_time=NOW()
+WHERE id=#{route.id} AND is_deleted=0;
+</update>
+<update id="deleteRouteById" parameterType="BigInteger">
+UPDATE bk_visitor_routes SET is_deleted=1,update_time=NOW() WHERE id=#{id} AND is_deleted=0;
+</update>
+<select id="getRoutes" resultMap="RouteMap">
+    SELECT *
+    FROM bk_visitor_routes
+    WHERE is_deleted=0
+    ORDER BY id
+    limit #{count} , #{number};
+</select>
+<select id="getRouteDetailById" parameterType="BigInteger" resultMap="RouteMap">
+    SELECT r.*,
+    b.id bid,b.attraction_id,b.route_id,b.sequence,b.is_deleted b_is_deleted,b.create_time b_create_time,b.update_time b_update_time,
+    a.id aid,a.order_number,a.name,a.text_introduction,a.open_time,a.longitude,a.latitude,a.is_deleted a_is_deleted,a.read_count,a.create_time a_create_time,a.update_time a_update_time
+    FROM bk_visitor_routes r LEFT JOIN
+    (SELECT * FROM bk_visitor_routes_bind_attrs WHERE is_deleted=0) b ON r.id=b.route_id
+    LEFT JOIN
+    (SELECT * FROM bk_visitor_attractions) a ON b.attraction_id=a.id
+    WHERE r.id=#{id};
+</select>
+<select id="getSumOfRoutes" resultType="int">
+    SELECT count(id)
+    FROM bk_visitor_routes
+    WHERE is_deleted=0
+</select>
+
+<!--modified by YuLei-->
+
+<select id="getAllRoute" resultMap="RouteMap">
+SELECT * FROM bk_visitor_routes
+WHERE is_deleted=0;
+</select>
+<select id="getRouteById" parameterType="BigInteger" resultMap="RouteMap">
+SELECT * FROM bk_visitor_routes
+WHERE is_deleted=0 AND id=#{routeId};
+</select>
+<update id="updateRouteNameById" >
+UPDATE bk_visitor_routes SET route_name=#{routeName},update_time=NOW() WHERE id=#{routeId} AND is_deleted=0;
+</update>
+<update id="updateSpecificRouteById">
+UPDATE bk_visitor_routes SET specific_route=#{specificRoute},update_time=NOW() WHERE id=#{routeId} AND is_deleted=0;
+</update>
+<update id="updateRouteTextIntroductionById">
+UPDATE bk_visitor_routes SET text_introduction=#{textIntroduction},update_time=NOW() WHERE id=#{routeId} AND is_deleted=0;
+</update>
+
+</mapper>
