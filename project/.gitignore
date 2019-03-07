@@ -13,7 +13,8 @@ personalCenter/
 reservation/
 tour/
 visitor/
-
+log4j.properties
+pom.xml
 
 pom.xml.tag
 pom.xml.releaseBackup
