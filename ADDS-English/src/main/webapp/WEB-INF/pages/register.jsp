@@ -67,28 +67,32 @@
         }
 
         if(username.toString()===""){
-            alert("用户名不能为空!请重新输入");//输出对话框提示
+            //alert("用户名不能为空!请重新输入");//输出对话框提示
+            alert("User name cannot be empty!Please re-enter it!");//输出对话框提示
             document.getElementById("name").focus();//焦点定位
             return false;
         }
         if(password_1.toString()===""){
-            alert("密码不能为空!请重新输入");//输出对话框提示
+            //alert("密码不能为空!请重新输入");//输出对话框提示
+            alert("The password cannot be empty!Please re-enter it");//输出对话框提示
             document.getElementById("password").focus();//焦点定位
             return false;
         }
         if(password_1.toString()!==password_2.toString())
         {
-            alert("两次密码输入不同，请重新确认");//输出对话框提示
+           //alert("两次密码输入不同，请重新确认");//输出对话框提示
+            alert("Two input passwords are different,please reconfirm!");//输出对话框提示
             document.getElementById("password").focus();//焦点定位
             return false;
         }
         if(!idcardReg.test(identityID)) {
-            alert("身份证号格式有误,请重新确认");//输出对话框提示
+            //alert("身份证号格式有误,请重新确认");//输出对话框提示
+            alert("The identity card number is incorrect. Please reconfirm!");//输出对话框提示
             document.getElementById("identityID").focus();//焦点定位
             return false;
         }
         if(radio_m.toString()==="false"&&radio_f.toString()==="false"){
-            alert("请选择性别!");//输出对话框提示
+            alert("Please select your gender!");//输出对话框提示
             return false;
         }
         return true;
