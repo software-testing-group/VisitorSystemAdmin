@@ -9,7 +9,7 @@ src/main/resources/jdbc.properties
 .settings
 .springBeans
 .sts4-cache
-
+pom.xml
 # Built application files and Maven
 target/
 pom.xml.tag
