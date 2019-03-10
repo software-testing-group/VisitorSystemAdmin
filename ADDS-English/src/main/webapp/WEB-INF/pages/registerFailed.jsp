@@ -23,7 +23,7 @@
 	<div class="col-sm-4" style="line-height:12px;padding:36px;border-radius:0px;box-shadow: 0px 0px 20px #655c5c;background-color:white">
         <p>Registration failed!</p>
         <p style="margin-top: 20px">Maybe the username has been registered!</p>
-        <p style="margin-top: 20px"><a href="<%=basePath%>user/toAddUser">re-registration</a></p>
+        <p style="margin-top: 20px"><a href="<%=basePath%>user/toAddUser">re-registeration</a></p>
 	</div>
 	<div class="col-sm-4"></div>
 </div>

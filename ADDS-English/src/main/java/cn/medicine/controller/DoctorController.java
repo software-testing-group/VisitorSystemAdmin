@@ -119,6 +119,12 @@ public class DoctorController {
     public String getList(HttpServletRequest request,Model model) {
         return "documentList";
     }
+
+    @RequestMapping(value = "/uploadDocumentDoctor")
+    public String uploadDocDoctor(HttpServletRequest request,Model model) {
+        return "uploadDocumentDoctor";
+    }
+
     @RequestMapping(value = "/uploadDocument")
     public String uploadDoc(HttpServletRequest request,Model model) {
         return "uploadDocumentPatient";

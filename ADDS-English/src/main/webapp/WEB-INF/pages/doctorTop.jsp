@@ -36,9 +36,9 @@
             <%-- <li><a  href="<%=basePath%>record/clinicRecord4Doctor">出诊记录</a></li>
              <li style="width: 120px"><a  href="<%=basePath%>record/hospitalRecord4Doctor">病人住院记录</a></li>--%>
             <li style="font-size: 13px;"><a href="<%=basePath%>doctor/allPatients4doctor">Patients</a></li>
-            <li style="font-size: 13px;width:120px;"><a style="color: black" href="<%=basePath%>doctor/QA">Expert Q&A</a></li>
+            <li style="font-size: 13px;width:120px;"><a href="<%=basePath%>doctor/QA">Expert Q&A</a></li>
             <%--<li><a  href="<%=basePath%>doctor/QA">问答平台  </a></li>--%>
-            <li style="font-size: 13px;line-height: 20px;width:120px;"><a href="<%=basePath%>doctor/account">Knowledge<br>graph</a></li>
+            <%--<li style="font-size: 13px;line-height: 20px;width:120px;"><a href="<%=basePath%>doctor/account">Knowledge<br>graph</a></li>--%>
             <li style="color: black;font-size: 13px;line-height: 20px;width:120px;"><a href="<%=basePath%>doctor/documentList">Medical archives processing</a></li>
             <%--<li style="font-size: 12px;line-height: 20px;margin-left: 20px"><a href="<%=basePath%>doctor/account">Personal information</a></li>--%>
         </ul>

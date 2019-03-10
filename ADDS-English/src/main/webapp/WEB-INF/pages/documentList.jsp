@@ -26,7 +26,7 @@
         <!--表格数据-->
         <div style="margin-top: 20px"></div>
         <div>
-            <a href="<%=basePath%>doctor/uploadDocument">
+            <a href="<%=basePath%>doctor/uploadDocumentDoctor">
                 <%--<el-button type="primary" icon="el-icon-circle-plus-outline">上传数据</el-button>--%>
                 <el-button type="primary" icon="el-icon-circle-plus-outline">Upload medical archives</el-button>
             </a>

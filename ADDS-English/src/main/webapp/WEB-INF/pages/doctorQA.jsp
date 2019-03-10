@@ -22,11 +22,11 @@
     </div>
       <div class="box section-qa-content">
           <div class="section-qa-row">
-              <label>问题描述：</label>
+              <label>Description：</label>
               <textarea class="sys-input" type="text" id="question" name="question"></textarea>
           </div>
           <div class="section-qa-row">
-              <label class="form-label">科室类型：</label>
+              <label class="form-label">Department：</label>
               <select name="hospitalDepartment" id="hospitalDepartment">
                   <c:forEach items="${hospitalDepartmentList}" var="hd">
                       <option value="${hd.hdid}">${hd.name}</option>
@@ -34,18 +34,18 @@
               </select>
           </div>
           <div class="section-qa-row" style="justify-content: center">
-              <button id="addQuestion" class="sys-btn" >提交</button>
+              <button id="addQuestion" class="sys-btn" >submit</button>
           </div>
       </div>
   </section>    
    <section>
     <div class="section-title">
-      <span>回答问题</span>
+      <span>Answer questions</span>
     </div>
     <div class="box section-qa-content">
         <form action="<%=basePath%>question/search" method="get">
          <div class="section-qa-row">
-           <label class="form-label">选择科室：</label>
+           <label class="form-label">Department：</label>
            <select  name="hospitalDepartment">
                <option value="0">所有</option>
                <c:forEach items="${hospitalDepartmentList}" var="hd">
@@ -54,29 +54,29 @@
            </select>
        </div>
          <div class="section-qa-row" style="justify-content: center">
-             <button id="search" class="sys-btn" type="submit">查找</button>
+             <button id="search" class="sys-btn" type="submit">search</button>
          </div>
      </form>     
     </div>
   </section>
     <section>
         <div class="section-title">
-            <span>查看问题</span>
+            <span>View questions</span>
         </div>
         <div class="box section-qa-content">
             <form style="text-align: center" action="<%=basePath%>question/searchSelfQuestion" method="get">
-                <button style="margin-top: 15px" class="sys-btn" id="searchSelfQuestion" type="submit">查找提问的问题</button>
+                <button style="margin-top: 15px" class="sys-btn" id="searchSelfQuestion" type="submit">search</button>
             </form>
         </div>
     </section>
-  <section>
-    <div class="section-title">
-      <span>在线交流</span>
-    </div>
-      <div class="box section-qa-content" style="text-align: center">
-          <a style="margin-top: 25px" class="sys-btn"  href="<%=basePath %>doctor/talk"  >进入在线交流</a>
-      </div>
-  </section> 
+  <%--<section>--%>
+    <%--<div class="section-title">--%>
+      <%--<span>在线交流</span>--%>
+    <%--</div>--%>
+      <%--<div class="box section-qa-content" style="text-align: center">--%>
+          <%--<a style="margin-top: 25px" class="sys-btn"  href="<%=basePath %>doctor/talk"  >进入在线交流</a>--%>
+      <%--</div>--%>
+  <%--</section> --%>
 </div>
 <div id="questionlistdiv" class="wrapper">
   

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
     String path=request.getContextPath();
     String basePath=request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,26 +12,41 @@
     <link rel="stylesheet" href="<%=path%>/css/reset.css"/>
     <link rel="stylesheet" href="<%=path%>/css/style.css"/>
 </head>
-<body>
-<div id="top">
-      <c:choose>
-          <c:when test="${usertype==0}">
-              <jsp:include page="adminTop.jsp" flush="true"/>
-          </c:when>
-          <c:when test="${usertype==1}">
-              <jsp:include page="doctorTop.jsp" flush="true"/>
-          </c:when>
-          <c:when test="${usertype==2}">
-              <jsp:include page="patientTop.jsp" flush="true"/>
-          </c:when>
-          <c:when test="${usertype==3}">
-              <jsp:include page="expertTop.jsp" flush="true"/>
-          </c:when>         
-          <c:otherwise>
-              <jsp:include page="notLoginTop.jsp" flush="true" />
-          </c:otherwise>
-      </c:choose>
-  </div>
+<body  style="background-image: url(<%=path%>/images/doctor.jpg) ;background-size: cover">
+<!-- <div class="bg" ;width:100%;heigt:100%;position:absolute"> -->
+
+<!-- </div> -->
+<nav class="nav">
+    <div class="header clearfix" style="display:none">
+        <div class="logo">
+            <img src="<%=path%>/images/logo2.jpg">
+        </div>
+        <div class="user-info">
+        </div>
+    </div>
+    <div class="nav-wrapper clearfix">
+        <div style="width: 1080px;margin: 0 auto;display:flex;justify-content:space-between">
+            <div class="n-list" >
+                <ul>
+                    <%--<li>全部</li>--%>
+                    <li>Disease</li>
+                    <li>Symptom</li>
+                </ul>
+            </div>
+            <div class="n-search" style="width:40%">
+                            <input type="text" style="width: 100%">
+                <i class="iconfont">&#xe600</i>            
+            </div>
+            <div class="n-list">
+                <ul>
+                    <li> <a href="<%=basePath%>user/userLogin">Login</a></li>
+                    <li style="width:auto"> <a href="<%=basePath%>user/toAddUser">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="nav-padding"></div>
 <div class="content-wrapper">
     <section>
         <div class="section-title">
@@ -114,8 +128,8 @@
         </div>
     </section>
 </div>
-<div>
-  <jsp:include page="footer.jsp" flush="true"/>
-</div>
+<footer class="footer">
+    <div class="copyright">@Copyright XMU Lab</div>
+</footer>
 </body>
 </html>

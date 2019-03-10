@@ -28,18 +28,18 @@
 <div class="content-wrapper">
   <section class="form-wrapper">
     <div class="section-title">
-      <span>所有病人</span>
+      <span>Patients</span>
     </div>
     <div class="form-content">
       <table class="real-table" style="width: 100%" >
             <tr class="t-title">
-                <td>用户名</td>
-                <td>年龄</td>
-                <td>性别</td>
-                <td>电话</td>
-                <td>邮箱</td>
-                <td>身份证号</td>
-                <td>查看病例图谱</td>
+                <td>Username</td>
+                <td>Age</td>
+                <td>Gender</td>
+                <td>Telephone</td>
+                <td>Email</td>
+                <td>ID number</td>
+                <%--<td>查看病例图谱</td>--%>
             </tr>
         <c:forEach items="${userList}" var="user1">
           <tr>
@@ -49,13 +49,13 @@
             <td>${user1.phone }</td>
             <td>${user1.email }</td>
             <td>${user1.identityID }</td>
-              <td> <a  href="<%=basePath%>patient/patientGraphs?paientIdentityID=${user1.identityID }">查看病例图谱 </a></td>
+              <%--<td> <a  href="<%=basePath%>patient/patientGraphs?paientIdentityID=${user1.identityID }">查看病例图谱 </a></td>--%>
           </tr>
         </c:forEach>
       </table>
         <c:if test="${user.type eq 0}">
             <div class="pagination-wrapper" >
-                <span class="total-text">共${totalpage}页</span>
+                <span class="total-text">${totalpage} Pages</span>
                 <a class="pagination" href="<%=basePath%>user/allpatients?curpage=${curpage-1}" >
                     <span class="front-page"></span>
                 </a>
@@ -68,7 +68,7 @@
         <c:if test="${user.type eq 1}">
 
             <div class="pagination-wrapper" >
-                <span class="total-text">共${totalpage}页</span>
+                <span class="total-text">${totalpage} Pages</span>
                 <a class="pagination" href="<%=basePath%>doctor/allPatients4doctor?curpage=${curpage-1}" >
                     <span class="front-page"></span>
                 </a>
@@ -78,10 +78,6 @@
                 </a>
             </div>
         </c:if>
-
-
-
-
     </div>
   </section>
 
