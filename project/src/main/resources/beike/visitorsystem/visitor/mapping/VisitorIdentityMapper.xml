@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.visitor.mapper.VisitorIdentityMapper" >
+    <resultMap type="beike.visitorsystem.visitor.model.VisitorIdentity" id="VisitorIdentityMap">
+        <id property="id" column="id" />
+        <result property="fullName" column="full_name"/>
+        <result property="identityCard" column="identity_card"/>
+        <result property="identityCardType" column="identity_card_type"/>
+        <result property="isBanned" column="is_banned"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="createTime" column="created_at"/>
+        <result property="updateTime" column="updated_at"/>
+    </resultMap>
+    <select id="getIdentityByCard" resultMap="VisitorIdentityMap">
+    SELECT * FROM bk_visitor_identities WHERE is_deleted=0 AND identity_card like "%"#{identityCard}"%"
+        <if test="isBanned == 1">
+            and is_banned in (1,2,3,4)
+        </if>
+        <if test="isBanned == 0">
+            and is_banned = 0
+        </if>
+		limit #{count} , #{number};
+    </select>
+
+    <select id="getSumByIdentity" resultType="int">
+        SELECT count(*) FROM bk_visitor_identities WHERE is_deleted=0 AND identity_card like "%"#{identity}"%"
+        <if test="isBanned == 1">
+            and is_banned in (1,2,3,4)
+        </if>
+        <if test="isBanned == 0">
+            and is_banned = 0
+        </if>
+    </select>
+
+    <select id="getIdentityByName" resultMap="VisitorIdentityMap">
+        SELECT * FROM bk_visitor_identities WHERE is_deleted=0 AND full_name like "%"#{name}"%"
+        <if test="isBanned == 1">
+            and is_banned in (1,2,3,4)
+        </if>
+        <if test="isBanned == 0">
+            and is_banned = 0
+        </if>
+        limit #{count} , #{number};
+    </select>
+
+    <select id="getSumByName" resultType="int">
+        SELECT count(*) FROM bk_visitor_identities WHERE is_deleted=0 AND full_name like "%"#{name}"%"
+        <if test="isBanned == 1">
+            and is_banned in (1,2,3,4)
+        </if>
+        <if test="isBanned == 0">
+            and is_banned = 0
+        </if>
+    </select>
+
+    <select id="getSumIdentity" resultType="int">
+    SELECT count(id) FROM bk_visitor_identities WHERE is_deleted=0;
+    </select>
+    <select id="getSumBannedIdentity" resultType="int">
+       SELECT count(id) FROM bk_visitor_identities
+       WHERE is_deleted=0 AND is_banned != 0
+    </select>
+    <select id="getSumNoBannedIdentity" resultType="int">
+         SELECT count(id) FROM bk_visitor_identities
+       WHERE is_deleted=0 AND is_banned = 0
+    </select>
+
+
+    <select id="getAllVisitorIdentity" resultMap="VisitorIdentityMap">
+        SELECT * FROM bk_visitor_identities WHERE is_deleted=0 limit #{count} , #{number};
+    </select>
+    <select id="getAllNoBannedVisitorIdentity" resultMap="VisitorIdentityMap">
+        SELECT * From bk_visitor_identities WHERE is_banned=0 AND is_deleted=0 limit #{count} , #{number};
+    </select>
+    <select id="getAllBannedVisitorIdentity" resultMap="VisitorIdentityMap">
+        SELECT * From bk_visitor_identities WHERE is_banned !=0 AND is_deleted=0 limit #{count} , #{number};
+    </select>
+    <select id="getVisitorIdentityById" parameterType="BigInteger" resultMap="VisitorIdentityMap">
+        SELECT * FROM bk_visitor_identities WHERE id=#{VisitorIdentityId} AND is_deleted=0;
+    </select>
+    <update id="defriendVisitorIdentity" parameterType="BigInteger">
+        UPDATE bk_visitor_identities SET is_banned=4,updated_at=NOW() WHERE id=#{VisitorIdentityId} AND is_deleted=0;
+    </update>
+    <update id="refriendVisitorIdentity" parameterType="BigInteger">
+        UPDATE bk_visitor_identities SET is_banned=0,updated_at=NOW() WHERE id=#{VisitorIdentityId} AND is_deleted=0;
+    </update>
+</mapper>

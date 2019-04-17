@@ -7,12 +7,10 @@ target/
 # Secrecy
 DataConfig.java
 add/
-authority/
 count/
 personalCenter/
 reservation/
 tour/
-visitor/
 log4j.properties
 pom.xml
 

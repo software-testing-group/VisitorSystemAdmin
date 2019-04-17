@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.visitor.mapper.VisitorUserMapper" >
+    <resultMap type="beike.visitorsystem.visitor.model.VisitorUser" id="VisitorUserMap">
+        <id property="id" column="id" />
+        <result property="cellphone" column="cellphone"/>
+        <result property="openId" column="open_id"/>
+        <result property="credit" column="credit"/>
+        <result property="createTime" column="created_at"/>
+        <result property="updateTime" column="updated_at"/>
+        <result property="isBanned" column="is_banned"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <collection property="visitorBindingIdentityList" ofType="beike.visitorsystem.visitor.model.VisitorBindingIdentity">
+        <id property="id" column="bid"/>
+        <result property="userId" column="buid"/>
+        <result property="identityId" column="biid"/>
+        <result property="isDeleted" column="bisd"/>
+        <result property="isMain" column="is_main"/>
+        <result property="createTime" column="bct"/>
+        <result property="updateTime" column="but"/>
+     <association property="visitorIdentity" javaType="beike.visitorsystem.visitor.model.VisitorIdentity">
+                <id property="id" column="iid" />
+        <result property="fullName" column="full_name"/>
+        <result property="identityCard" column="iic"/>
+        <result property="identityCardType" column="iict"/>
+        <result property="isBanned" column="ib"/>
+        <result property="isDeleted" column="iisd"/>
+        <result property="createTime" column="ict"/>
+        <result property="updateTime" column="iut"/>
+        </association>  
+        </collection>
+        <collection property="visitorReservationList" ofType="beike.visitorsystem.visitor.model.VisitorReservation">
+        <id property="id" column="rid"/>
+        <result property="userId" column="ruid"/>
+        <result property="reservationTimeId" column="reservation_time_id"/>
+        <result property="reservationNumber" column="reservation_number"/>
+        <result property="isFinished" column="is_finished"/>
+        <result property="isDeleted" column="risd"/>
+        <result property="createTime" column="rct"/>
+        <result property="updateTime" column="rut"/>
+        <association property="visitorReservationTime" javaType="beike.visitorsystem.visitor.model.VisitorReservationTime">
+        <id property="id" column="rtid"/>
+        <result property="date" column="date"/>
+        <result property="timeStart" column="time_start"/>
+        <result property="timeEnd" column="time_end"/>
+        <result property="availTime" column="avail_time"/>
+        <result property="number" column="number"/>
+        <result property="isDeleted" column="rtisd"/>
+        <result property="createTime" column="rtct"/>
+        <result property="updateTime" column="rtut"/>
+        </association>
+        </collection>
+    </resultMap>
+    <select id="getAllVisitorUser" resultMap="VisitorUserMap">
+        SELECT * FROM bk_visitor_users WHERE is_deleted=0 limit #{count} , #{number};
+    </select>
+
+    <select id="getSumBannedVisitorUser" resultType="int">
+       SELECT count(u.id)  FROM bk_visitor_users u
+       WHERE u.is_deleted=0 AND u.is_banned != 0
+    </select>
+    <select id="getSumNoBannedVisitorUser" resultType="int">
+         SELECT count (u.id) FROM bk_visitor_users u
+         WHERE u.is_deleted=0 AND u.is_banned=0
+    </select>
+    <select id="getSumVisitorUser" resultType="int">
+    SELECT count(id) FROM bk_visitor_users WHERE is_deleted=0;
+    </select>
+    
+    <select id="getAllVisitorUserAndIdentity" resultMap="VisitorUserMap">
+            SELECT u.*,b.id bid,b.user_id buid,b.identity_id biid,b.is_deleted bisd,b.is_main,b.created_at bct,b.updated_at but,i.id iid,i.full_name,i.identity_card iic,i.identity_card_type iict,i.is_banned ib,i.is_deleted issd,i.created_at ict,i.updated_at iut
+FROM bk_visitor_users u LEFT JOIN 
+(SELECT * FROM bk_visitor_binding_identities b WHERE is_deleted=0 and is_main =1) b ON u.id=b.user_id
+LEFT JOIN 
+(SELECT * FROM bk_visitor_identities WHERE is_deleted=0 ) i ON b.identity_id=i.id
+WHERE u.is_deleted=0 limit #{count} , #{number};
+    </select>
+    <select id="getVisitorUserByIdentity" resultMap="VisitorUserMap">
+    SELECT u.*,b.id bid,b.user_id buid,b.identity_id biid,b.is_deleted bisd,b.is_main,b.created_at bct,b.updated_at but,i.id iid,i.full_name,i.identity_card iic,i.identity_card_type iict,i.is_banned ib,i.is_deleted issd,i.created_at ict,i.updated_at iut
+FROM bk_visitor_users u LEFT JOIN 
+(SELECT * FROM bk_visitor_binding_identities b WHERE is_deleted=0) b ON u.id=b.user_id
+LEFT JOIN 
+(SELECT * FROM bk_visitor_identities WHERE is_deleted=0 ) i ON b.identity_id=i.id
+WHERE b.is_main=1 AND i.identity_card like "%"#{identityCard}"%" limit #{count} , #{number};
+    </select>
+    <select id="getVisitorUserByPhone" parameterType="String" resultMap="VisitorUserMap">
+    SELECT * FROM bk_visitor_users WHERE cellphone like "%"#{cellphone}"%"; 
+    </select>
+    <select id="getVisitorUserById" parameterType="BigInteger" resultMap="VisitorUserMap">
+        SELECT * FROM bk_visitor_users WHERE id=#{VisitorId} AND is_deleted=0;
+    </select>
+    <select id="getAllBannedVisitorUser"  resultMap="VisitorUserMap">
+  SELECT u.*,b.id bid,b.user_id buid,b.identity_id biid,b.is_deleted bisd,b.is_main,b.created_at bct,b.updated_at but,i.id iid,i.full_name,i.identity_card iic,i.identity_card_type iict,i.is_banned ib,i.is_deleted issd,i.created_at ict,i.updated_at iut
+FROM bk_visitor_users u   LEFT JOIN
+(SELECT * FROM bk_visitor_binding_identities b WHERE is_deleted=0 and is_main = 1) b ON u.id=b.user_id
+LEFT JOIN 
+(SELECT * FROM bk_visitor_identities WHERE is_deleted=0 ) i ON b.identity_id=i.id
+WHERE u.is_deleted=0 AND u.is_banned != 0
+limit #{count} , #{number};
+    </select>
+    <select id="getAllNoBannedVisitorUser"  resultMap="VisitorUserMap">
+                            SELECT u.*,b.id bid,b.user_id buid,b.identity_id biid,b.is_deleted bisd,b.is_main,b.created_at bct,b.updated_at but,i.id iid,i.full_name,i.identity_card iic,i.identity_card_type iict,i.is_banned ib,i.is_deleted issd,i.created_at ict,i.updated_at iut
+FROM bk_visitor_users u LEFT JOIN 
+(SELECT * FROM bk_visitor_binding_identities b WHERE is_deleted=0 and is_main = 1) b ON u.id=b.user_id
+LEFT JOIN 
+(SELECT * FROM bk_visitor_identities WHERE is_deleted=0 ) i ON b.identity_id=i.id
+WHERE u.is_deleted=0 AND u.is_banned=0
+limit #{count} , #{number};
+    </select>
+    <select id="getVisitorDetailsById" parameterType="BigInteger" resultMap="VisitorUserMap">
+    SELECT u.*,b.id bid,b.user_id buid,b.identity_id biid,b.is_deleted bisd,b.is_main,b.created_at bct,b.updated_at but,i.id iid,i.full_name,i.identity_card iic,i.identity_card_type iict,i.is_banned ib,i.is_deleted issd,i.created_at ict,i.updated_at iut
+FROM bk_visitor_users u LEFT JOIN 
+(SELECT * FROM bk_visitor_binding_identities b WHERE is_deleted=0) b ON u.id=b.user_id
+LEFT JOIN 
+(SELECT * FROM bk_visitor_identities WHERE is_deleted=0 ) i ON b.identity_id=i.id
+WHERE u.is_deleted=0 AND u.id=#{VisitorUserId};
+    </select>
+    <select id="getVisitorReservationById" parameterType="BigInteger" resultMap="VisitorUserMap">
+    SELECT u.*,r.id rid,r.user_id ruid,r.reservation_time_id,r.reservation_number,r.is_finished,r.is_deleted risd,r.created_at rct,r.updated_at rut,rt.id rtid,rt.date,rt.time_start,rt.time_end,rt.avail_time,rt.number,rt.is_deleted rtisd,rt.created_at rtct,rt.updated_at rtut
+FROM bk_visitor_users u LEFT JOIN 
+(SELECT * FROM bk_visitor_reservations) r ON u.id=r.user_id
+LEFT JOIN 
+(SELECT * FROM bk_visitor_reservation_times) rt ON r.reservation_time_id=rt.id
+WHERE u.is_deleted=0 AND u.id=#{VisitorUserId};
+</select>
+<select id="getVisitorUserByDateAsc" resultMap="VisitorUserMap">
+SELECT * FROM bk_visitor_users WHERE is_deleted=0 ORDER BY created_at ASC;
+</select>
+<select id="getVisitorUserByDateDesc" resultMap="VisitorUserMap">
+SELECT * FROM bk_visitor_users WHERE is_deleted=0 ORDER BY created_at DESC;
+</select>
+    <update id="defriendVisitorUser" parameterType="BigInteger">
+        UPDATE bk_visitor_users SET is_banned=4,updated_at=NOW() WHERE id=#{VisitorId} AND is_deleted=0;
+    </update>
+    <update id="refriendVisitorUser" parameterType="BigInteger">
+        UPDATE bk_visitor_users SET is_banned=0,updated_at=NOW() WHERE id=#{VisitorId} AND is_deleted=0;
+    </update>
+    <select id="getVisitorUserByOpenId" resultMap="VisitorUserMap">
+        SELECT * FROM bk_visitor_users WHERE open_id = #{open_id};
+    </select>
+    <insert id="addVisitorUser">
+        INSERT INTO bk_visitor_users(id,credit,is_banned,is_deleted,open_id,created_at,updated_at)
+        VALUES(#{vu.id},#{vu.credit},#{vu.isBanned},#{vu.isDeleted},#{vu.openId},#{vu.createTime},#{vu.updateTime})
+    </insert>
+</mapper>

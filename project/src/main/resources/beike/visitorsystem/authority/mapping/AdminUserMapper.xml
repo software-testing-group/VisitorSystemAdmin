@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="beike.visitorsystem.authority.mapper.AdminUserMapper" >
+	
+	<!-- ResultMap -->
+	<resultMap id="roleResultMap" type="beike.visitorsystem.authority.model.Role">
+		<id property="id" column="id" />
+		<result property="roleName" column="role_name"/>
+		<result property="roleDescription" column="role_description"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	    <association property="actionList" column="action_list" select="getGroupAdminActionByString"></association>
+	</resultMap>
+	
+	<resultMap id="adminUserResultMap" type="beike.visitorsystem.authority.model.AdminUser">
+	  	<id property="id" column="id" />
+	  	<result property="username" column="username"/>
+	  	<result property="password" column="password"/>
+	  	<result property="staffId" column="staff_id"/>
+	  	<result property="lastLogin" column="last_login"/>
+	  	<result property="lastIp" column="last_ip"/>
+	  	<result property="isBanned" column="is_banned"/>
+	  	<result property="createTime" column="create_time"/>
+	  	<result property="updateTime" column="update_time"/>
+	  	<result property="signature" column="signature"/>
+	  	<association property="roleList" column="role_list" select="getGroupRoleByString"></association>
+	</resultMap>
+	
+	<resultMap id="adminActionResultMap" type="beike.visitorsystem.authority.model.AdminAction">
+		<id property="id" column="id"/>
+		<result property="actionName" column="action_name"/>
+		<result property="parentId" column="parent_id"/>
+		<result property="actionCode" column="action_code"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="isDeleted" column="is_deleted"/>
+	</resultMap>
+	
+	<resultMap id="adminLogResultMap" type="beike.visitorsystem.authority.model.AdminLog">
+		<id property="id" column="id"/>
+		<result property="adminUserId" column="admin_user_id"/>
+		<result property="adminUsername" column="admin_username"/>
+		<result property="description" column="description"/>
+		<result property="ip" column="ip"/>
+		<result property="createTime" column="create_time"/>
+	</resultMap>
+	
+	<resultMap id="settingsResultMap" type="beike.visitorsystem.authority.model.Settings">
+		<id property="id" column="id"/>
+		<result property="settingName" column="setting_name"/>
+		<result property="settingCode" column="setting_code"/>
+		<result property="value" column="value"/>
+		<result property="updateTime" column="update_time"/>
+	</resultMap>
+	<!-- ResultMap END -->
+	
+	<!-- association -->
+	<select id="getGroupAdminActionByString" resultMap="adminActionResultMap">
+		
+		select * from bk_visitor_admin_action where id in
+		<foreach collection="_parameter.split(',')" item="item" open="(" separator="," close=")">
+		#{item}
+		</foreach>
+		
+	</select>
+	
+	<select id="getGroupRoleByString" resultMap="roleResultMap">
+		
+		select * from bk_visitor_role where id in
+		<foreach collection="_parameter.split(',')" item="item" open="(" separator="," close=")">
+		#{item}
+		</foreach>	
+			
+	</select>
+	<!-- association END -->
+	
+	<!-- 通过用户名获取一个管理员 -->
+	<select id="getAdminUser" resultMap="adminUserResultMap">
+        select * from bk_visitor_admin_user where username = #{username}
+    </select>   
+    
+    <!-- 通过id获取一个管理员 -->
+    <select id="getAdminUserById" resultMap="adminUserResultMap">
+        select * from bk_visitor_admin_user where id = #{id}
+    </select>   
+ 
+ 	<!-- 通过学工号获取一个管理员 -->
+ 	<select id="getAdminUserByStaffId" resultMap="adminUserResultMap">
+ 		select * from bk_visitor_admin_user where staff_id = #{staffId}
+ 	</select>
+ 
+ 	<!-- 新增一个管理员 -->
+    <insert id="addAdminUser">
+        insert into bk_visitor_admin_user(id,username,password,staff_id,role_list,last_login,last_ip,is_banned,create_time,update_time,signature) values(#{adminUser.id},#{adminUser.username},#{adminUser.password},#{adminUser.staffId},#{adminUser.roleList},#{adminUser.lastLogin},#{adminUser.lastIp},#{adminUser.isBanned},#{adminUser.createTime},#{adminUser.updateTime},#{adminUser.signature});
+    </insert>
+    
+    <!-- 修改一个管理员的密码 -->
+    <update id="editPassword">
+    	update bk_visitor_admin_user set password = #{password},update_time=#{updateTime},signature=#{signature} where id = #{id}
+    </update>
+    
+    <!-- 禁用/解禁管理员 -->
+    <update id="banAdminUser">
+    	update bk_visitor_admin_user set is_banned = #{isBanned},update_time=#{updateTime},signature=#{signature} where id = #{id}
+    </update>
+    
+    <!-- 修改登陆时间、IP -->
+    <update id="dealLogin">
+    	update bk_visitor_admin_user set last_ip = #{lastIp},last_login = #{lastLogin} where id = #{id}
+    </update>
+    
+    <!-- 获取管理员列表(no filter) -->
+    <select id="getAdminUserList" resultMap="adminUserResultMap">
+    	select * from bk_visitor_admin_user order by id limit #{count},#{number}
+    </select>
+    
+    <!-- 获取管理员列表(filter) -->
+    <select id="getAdminUserListFilter" resultMap="adminUserResultMap">
+    	select * from bk_visitor_admin_user where 1=1
+		<if test="staffId != 0">
+			<if test="staffId != null ">
+				and staff_id = #{staffId}
+			</if>
+		</if>
+		 <if test="roleId != 0">
+		  <if test="roleId != null">
+    	   and find_in_set(#{roleId},role_list) > 0
+		  </if>
+		 </if>
+    	<if test="username != null">
+    		and username LIKE '%${username}%'
+    	</if>
+    	<if test="start != null">
+    		and last_login &gt; #{start}
+    	</if>
+    	<if test="end != null">
+    		and last_login &lt; #{end}
+    	</if>
+    	order by id
+    	limit #{count} , #{number}
+    </select>
+    
+    <!-- 获取角色列表 -->
+    <select id="getRoleList" resultMap="roleResultMap">
+    	select * from bk_visitor_role where is_deleted = 0  order by id limit #{count} , #{number}
+    </select>
+    
+     <!-- 获取全部角色列表 -->
+    <select id="getRoleListAll" resultMap="roleResultMap">
+    	select * from bk_visitor_role where is_deleted = 0  order by id
+    </select>
+    
+    <!-- 根据时间排序获取所有操作记录列表 -->
+    <select id="getAdminLogList" resultMap="adminLogResultMap">
+    	select * from bk_visitor_admin_log where 1 = 1 
+    	<if test="username != ''">
+    		and admin_username LIKE '%${username}%'
+    	</if>
+    	<if test="description != ''">
+    		and description LIKE '%${description}%'
+    	</if>
+    	<if test="start != ''">
+    		and create_time &gt; #{start}
+    	</if>
+    	<if test="end != ''">
+    		and create_time &lt; #{end}
+    	</if>
+    	order by create_time desc limit #{count} , #{number} 
+    </select>
+    
+    <!-- 新增一个角色 -->
+    <insert id="addRole">
+    	insert into bk_visitor_role(id,role_name,role_description,action_list,create_time,update_time,is_deleted) 
+    	values(#{id},#{roleName},#{roleDescription},#{actionList},#{createTime},#{updateTime},#{isDeleted})
+    </insert>
+    
+    <!-- 删除某个角色 -->
+    <update id="deleteRole">
+    	update bk_visitor_role set is_deleted = 1,update_time=#{updateTime} where id = #{id}
+    </update>
+    
+    <!-- 获取所有权限 -->
+    <select id="getAdminActionListAll" resultMap="adminActionResultMap">
+    	select id,action_name,parent_id,action_code from bk_visitor_admin_action order by parent_id
+    </select>
+    
+    <!-- 通过角色id获取一个角色-->
+    <select id="getRoleByRoleId" resultMap="roleResultMap">
+    	select * from bk_visitor_role where id = #{id}
+    </select>
+    
+    <!-- 通过role_name获取一个角色 -->
+    <select id="getRoleByRoleName" resultMap="roleResultMap">
+    	select * from bk_visitor_role where role_name = #{name}
+    </select>
+    
+    <!-- 新增一个管理员操作记录 -->
+    <insert id="addAdminLog">
+    	insert into bk_visitor_admin_log(id,admin_user_id,admin_username,description,ip,create_time) values(#{log.id},#{log.adminUserId},#{log.adminUsername},#{log.description},#{log.ip},#{log.createTime});
+    </insert>
+    
+    <!-- 修改某个管理员角色列表 -->
+    <update id="editAdminUserRole">
+    	update bk_visitor_admin_user set role_list=#{roleList},update_time=#{updateTime},signature=#{signature} where id=#{id}
+    </update>
+    
+    <!-- 修改角色的操作权限列表 -->
+    <update id="editRole">
+    	update bk_visitor_role set action_list = #{actionList},role_name=#{roleName},role_description=#{roleDescription},update_time=#{updateTime} where id=#{id}
+    </update>
+   
+    <!-- 设置表 -->
+    <select id="selectSettings" resultMap="settingsResultMap">
+   		select * from bk_visitor_setting
+    </select>
+   
+    <update id="updateSettings">
+    	update bk_visitor_setting set value=#{value},update_time=#{updateTime} where id = #{id}
+    </update>
+
+	<!-- 获取总数 -->
+	<select id="getSumAdminUser" resultType="int">
+		select count(id) from bk_visitor_admin_user where 1=1
+
+		<if test="username != null ">
+			and username LIKE '%${username}%'
+		</if>
+		<if test="staffId != 0 ">
+		    <if test="staffId != null ">
+			and staff_id = #{staffId}
+			</if>
+		</if>
+		<if test="roleId != 0">
+		  <if test="roleId != null">
+			and find_in_set(#{roleId},role_list) > 0
+		  </if>
+		</if>
+		<if test="start != null">
+			and last_login &gt; #{start}
+		</if>
+		<if test="end != null">
+			and last_login &lt; #{end}
+		</if>
+
+	</select>
+
+	<select id="getSumLogs" resultType="int">
+		select count(id) from bk_visitor_admin_log where 1 = 1
+		<if test="username != null">
+			and admin_username LIKE '%${username}%'
+		</if>
+		<if test="content != null">
+			and description LIKE '%${content}%'
+		</if>
+		<if test="start != null">
+			and create_time &gt; #{start}
+		</if>
+		<if test="end != null">
+			and create_time &lt; #{end}
+		</if>
+	</select>
+	<select id="getVersionIntroduction" resultMap="settingsResultMap">
+   		select * from bk_visitor_setting where setting_code ='about_us';
+    </select>
+</mapper>

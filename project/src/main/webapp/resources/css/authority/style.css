@@ -1,0 +1,74 @@
+.demo-content {
+	position: relative;
+	top: 60px;
+	left: 90px;
+	z-index: 1;
+	background: #FFFFFF;
+	box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12), 0 24px 24px 0 rgb(0, 0, 0, 0.24);
+	border-radius: 4px;
+	width: 446px;
+	min-height: 250px;
+	margin: 0px;
+	padding: 15px 25px;
+}
+
+.demo-title {
+	margin-bottom: 20px;
+}
+@font-face {
+	/* font-properties */
+	font-family: 'FontAwesome';
+	src: url('../fonts/authority/fontawesome-webfont.woff2'), url('../fonts/authority/fontawesome-webfont.ttf'), url('../fonts/authority/fontawesome-webfont.eot');
+	/* IE9 */
+}
+
+.radios-wapper1 {
+	padding-left: 10px;
+	border-bottom: #E0E0E0 solid 1px;
+}
+
+.radios-wapper2 {
+	padding-left: 10px;
+}
+.radios {
+	padding-left: 30px;
+}
+
+.radiochild {
+	padding-left: 30px;
+}
+.bottom-btn {
+	width: 100%;
+	text-align: center;
+	margin: 30px 0 10px;
+}
+
+.bottom-btn .btn {
+	background: #536DFE;
+	color: #fff;
+	border: none;
+	height: 35px;
+	font-size: 16px;
+	box-sizing: border-box;
+	width: 120px;
+	box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.12), 0 4px 4px 0 rgba(0, 0, 0, 0.12);
+}
+
+
+.get{
+	border-radius: 50%;
+	color: #fff;
+	font-family: 'FontAwesome';
+	content: "\f00c";
+	padding-left: 2px;
+	padding-top: 2px;
+	position: absolute;
+	width:16px;
+	height: 16px;
+	left: 0;
+	top: 0;
+	margin-left: -20px;
+	font-size: 11px;
+	background-color: #536DEF;
+	z-index: 100;
+}
