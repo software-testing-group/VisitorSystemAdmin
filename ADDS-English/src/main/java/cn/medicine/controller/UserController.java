@@ -81,7 +81,7 @@ public class UserController {
                 request.getSession(true).setAttribute("expert", expertService.getByIdentityID(user.getIdentityID()));
                 return "expert";
             }
-            return "index";
+            return "index1";
         }else{
             return "loginFail";
         }
@@ -99,7 +99,7 @@ public class UserController {
     //author TYJ
     @RequestMapping(value="/goToHome")
     public String goToHome(HttpServletRequest request,Model model){
-        return "index";
+        return "index1";
     }
     //author TYJ
     @RequestMapping(value="/succeedAddUser")
@@ -439,7 +439,7 @@ public class UserController {
     public String loginOut(HttpServletRequest request,Model model) {
 
     	request.getSession().invalidate();
-        return "index";
+        return "index1";
     }
     @RequestMapping(value = "/index")
       public String index(HttpServletRequest request,Model model) {
@@ -456,12 +456,12 @@ public class UserController {
             }else if(user.getType()==3){//专家
                 return "expert";
             }
-            return "index";
+            return "index1";
         }else{
             System.out.println(">>>>>>>>null");
         }
 
-        return "index";
+        return "index1";
     }
     
     @RequestMapping(value = "/hospitalOverview")
@@ -474,7 +474,7 @@ public class UserController {
             System.out.println(">>>>>>>>null");
         }
 
-        return "index";
+        return "index1";
     }
     @RequestMapping(value = "/updateOnlineUsers")
     @ResponseBody

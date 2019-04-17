@@ -26,7 +26,7 @@ public interface IRecordDao {
      */
     List<ClinicRecord> getClinicRecordList(String patient_ID);
     /**
-     * 
+     * zz
      * @Function:     getClinicRecordByDoctor 
      * @Description:   根据医生身份证号获得其出诊的记录  
      *                 <功能详细描述>

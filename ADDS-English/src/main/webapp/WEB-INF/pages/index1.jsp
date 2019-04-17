@@ -6,20 +6,50 @@
 %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>主页面</title>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>疾病-临床诊疗知识库</title>
     <link rel="stylesheet" href="<%=path%>/css/reset.css"/>
     <link rel="stylesheet" href="<%=path%>/css/style.css"/>
     <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="../js/d3-ellipse-force.js"></script>
-    <script src="../js/graph.js"></script>
-
+    <script src="../../js/d3-ellipse-force.js"></script>
+    <script src="../../js/graph.js"></script>
 </head>
-<body style="background-image: url(<%=path%>/images/background2.jpg) ;background-size: cover;">
-<div id="top">
-    <jsp:include page="patientTop.jsp" flush="true"/>
-</div>
+<body  style="background-image: url(<%=path%>/images/background2.jpg) ;background-size: cover;">
+<!-- <div class="bg" ;width:100%;heigt:100%;position:absolute"> -->
+
+<!-- </div> -->
+<nav class="nav">
+    <div class="header clearfix" style="display:none">
+        <div class="logo">
+            <img src="<%=path%>/images/logo2.jpg">
+        </div>
+        <div class="user-info">
+        </div>
+    </div>
+    <div class="nav-wrapper clearfix">
+        <div style="width: 1080px;margin: 0 auto;display:flex;justify-content:space-between">
+            <div class="n-list" >
+                <ul>
+                    <%--<li>全部</li>--%>
+                    <li>Disease</li>
+                    <li>Symptom</li>
+                </ul>
+            </div>
+            <div class="n-search" style="width:40%">
+                            <input type="text" style="width: 100%">
+                <i class="iconfont">&#xe600</i>            
+            </div>
+            <div class="n-list">
+                <ul>
+                    <li> <a href="<%=basePath%>user/userLogin">Login</a></li>
+                    <li style="width:auto"> <a href="<%=basePath%>user/toAddUser">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="nav-padding"></div>
 <%--<div class="content-wrapper">--%>
     <%--<section>--%>
         <%--<div class="section-title">--%>
@@ -101,14 +131,13 @@
         <%--</div>--%>
     <%--</section>--%>
 <%--</div>--%>
-
+<%--<footer class="footer">--%>
+    <%--<div class="copyright">@Copyright XMU Lab1</div>--%>
+<%--</footer>--%>
 <div class="svg-container">
     <svg width="1100" height="560"></svg>
 </div>
 
-<footer class="footer">
-    <div class="copyright">@Copyright XMU Lab</div>
-</footer>
 
 <script>
     var svg = d3.select("svg"),
@@ -201,10 +230,7 @@
     }
 
 </script>
-
 </body>
-</html>
-
 <style>
     .svg-container {
         margin-top: -10px;
@@ -220,3 +246,4 @@
         font: 10px sans-serif;
     }
 </style>
+</html>

@@ -19,15 +19,15 @@
 <div class="content-wrapper">
   <section>
     <div class="section-title">
-      <span>提交问题</span>
+      <span>Submit</span>
     </div>
     <div class="box section-qa-content">
       <div class="section-qa-row">
-        <label class="form-label">问题描述: </label>
+        <label class="form-label">Description: </label>
         <textarea class="sys-input" type="text" id="question" name="question"></textarea>
       </div>
       <div class="section-qa-row">
-        <label class="form-label">科室类型: </label>
+        <label class="form-label">Department type: </label>
         <select name="hospitalDepartment" id="hospitalDepartment">
           <c:forEach items="${hospitalDepartmentList}" var="hd">
             <option value="${hd.hdid}">${hd.name}</option>
@@ -35,26 +35,26 @@
         </select>
       </div>
       <div class="section-qa-row" style="justify-content: center">
-        <button id="addQuestion" class="sys-btn">提交</button>
+        <button id="addQuestion" class="sys-btn">submit</button>
       </div>
     </div>
   </section>
   <section>
     <div class="section-title">
-      <span>提问的问题</span>
+      <span>Question</span>
     </div>
       <div class="box section-qa-content">
         <form style="width:100px;margin:0 auto ;margin-top: 25px;" action="<%=basePath%>question/searchSelfQuestion" method="get">
-          <button id="searchSelfQuestion" class="sys-btn" type="submit">查找提问的问题</button>
+          <button id="searchSelfQuestion" class="sys-btn" type="submit">Search question</button>
         </form>
       </div>
   </section>
   <section>
     <div class="section-title">
-      <span>在线交流</span>
+      <span>Online system</span>
     </div>
     <div class="box section-qa-content" style="text-align: center">
-      <a style="margin-top: 25px" class="sys-btn" href="<%=basePath %>patient/talk" >进入在线交流</a>
+      <a style="margin-top: 25px" class="sys-btn" href="<%=basePath %>patient/talk" >Go to Online system</a>
     </div>
   </section>
 </div>

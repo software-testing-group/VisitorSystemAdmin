@@ -20,8 +20,8 @@
 <div class="col-sm-12">
 	<div class="col-sm-4"></div>
 	<div class="col-sm-4" style="line-height:12px;padding:36px;border-radius:0px;box-shadow: 0px 0px 20px #655c5c;background-color:white">
-        <p>注册成功</p><br>
-        <p style="margin-top: 20px"><a href="<%=basePath%>user/userLogin">去登录</a></p>
+        <p>Succeed !</p><br>
+        <p style="margin-top: 20px"><a href="<%=basePath%>user/userLogin">Login now</a></p>
 	</div>
 	<div class="col-sm-4"></div>
 </div>
