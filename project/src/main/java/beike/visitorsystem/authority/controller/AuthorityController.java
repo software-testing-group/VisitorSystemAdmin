@@ -52,8 +52,6 @@ public class AuthorityController {
 	@Autowired
 	private AuthorityService authorityService;
 	@Autowired
-	private AuthenticationManager authenticationManager;
-	@Autowired
 	AdminUserSecurityService securityService;
 	
 	/**
@@ -116,7 +114,6 @@ public class AuthorityController {
 
 	/**
 	 * 登陆，若已登陆则自动跳转到主页
-	 * @param model
 	 * @param error  参数
 	 * @return 登陆页面  or 主页
 	 */
@@ -158,8 +155,8 @@ public class AuthorityController {
 	
 	/**
 	 * 学工系统登陆的回调
-	 * @param request
-	 * @param response
+	 * @param ticket
+	 * @param model
 	 * @return  
 	 * @throws Exception
 	 */
@@ -337,7 +334,6 @@ public class AuthorityController {
 	/**
 	 * 修改一个管理员的角色
 	 * @param adminUserId 管理员id
-	 * @param roleIdList  角色id数组
 	 * @return  true or false
 	 */
 	@RequestMapping(value = "/authority/editAdminUserRole", method = RequestMethod.POST , produces = "application/json;charset=utf-8")

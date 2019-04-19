@@ -107,10 +107,7 @@ function checkCaptcha()
 
 function login()
 {
-
-
     var result = checkCaptcha();
-
 
     if (result !== "true") {
         alert("验证码错误");

@@ -10,12 +10,12 @@
         <i class="material-icons" data-toggle="dropdown">more_vert</i>
         <ul class="dropdown-menu">
             
-        	<li data-toggle="modal" data-target="#modal-password">
-        		<a>
-        		<i class="material-icons" data-toggle="dropdown">password</i>
-        		修改密码
-        		</a>
-        	</li>
+        	<%--<li data-toggle="modal" data-target="#modal-password">--%>
+        		<%--<a>--%>
+        		<%--<i class="material-icons" data-toggle="dropdown">password</i>--%>
+        		<%--修改密码--%>
+        		<%--</a>--%>
+        	<%--</li>--%>
         	 
         	<li onclick="javascript:document.getElementById('logout').click();">
         		<a id="logout" href="${pageContext.request.contextPath}/logout">
