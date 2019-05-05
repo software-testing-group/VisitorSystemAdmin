@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
-				.antMatchers("/resources/**","/captcha.form","/checkCaptcha").permitAll()  //csrfª·¿πΩÿ
+				.antMatchers("/**","/resources/**","/captcha.form","/checkCaptcha").permitAll()  //csrfª·¿πΩÿ
 				.and()
 			.exceptionHandling()
 				.accessDeniedPage("/403")
@@ -72,10 +72,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     @Override
                     public boolean matches(HttpServletRequest request) {
                         if(allowedMethods.matcher(request.getMethod()).matches()){
-                            return false;
+                            //return false;
+                            return true;
                         }
                         if(unprotectedMatcher.matches(request)||unprotectedMatcher1.matches(request)){
-                            return false;
+                            return true;
+                            //return false;
                         }
                         else {
                             return true;
