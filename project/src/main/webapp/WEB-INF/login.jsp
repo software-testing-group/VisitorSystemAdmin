@@ -43,14 +43,14 @@
         <input type="password" class="form-control" name="password" placeholder="密码">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="captcha" placeholder="验证码" onkeydown='if(event.keyCode==13){login();}'>
-        <span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <img id="captchaImage" alt="如果看不清楚，请单击图片刷新！" class="pointer" src="captcha.form" onclick="refreshCode()">
-        &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="refreshCode()">点击刷新</a>
-      </div>
+      <%--<div class="form-group has-feedback">--%>
+        <%--<input type="text" class="form-control" name="captcha" placeholder="验证码" onkeydown='if(event.keyCode==13){login();}'>--%>
+        <%--<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>--%>
+      <%--</div>--%>
+      <%--<div class="form-group has-feedback">--%>
+        <%--<img id="captchaImage" alt="如果看不清楚，请单击图片刷新！" class="pointer" src="captcha.form" onclick="refreshCode()">--%>
+        <%--&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick="refreshCode()">点击刷新</a>--%>
+      <%--</div>--%>
       </form>
       
       <div class="row">
@@ -107,13 +107,13 @@ function checkCaptcha()
 
 function login()
 {
-    var result = checkCaptcha();
-
-    if (result !== "true") {
-        alert("验证码错误");
-        refreshCode();
-        return ;
-    }
+    // var result = checkCaptcha();
+    //
+    // if (result !== "true") {
+    //     alert("验证码错误");
+    //     refreshCode();
+    //     return ;
+    // }
 
     var username = $("[name='usernane']").val();
     var password = $("[name='password']").val();

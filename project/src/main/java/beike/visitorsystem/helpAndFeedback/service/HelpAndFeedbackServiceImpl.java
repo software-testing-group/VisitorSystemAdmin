@@ -27,6 +27,15 @@ public class HelpAndFeedbackServiceImpl implements HelpAndFeedbackService {
 
     public boolean addHelp(Help help)
     {
+        if(help==null){
+            return false;
+        }
+        if(help.getQuestion()==null||help.getAnswer()==null){
+            return false;
+        }
+        if(help.getQuestion().equals("")||help.getAnswer().equals("")){
+            return false;
+        }
         help.setId(generateID.getID());
         help.setCreateTime(df.format(new Date()).toString());
         help.setUpdateTime(df.format(new Date()).toString());
@@ -35,8 +44,17 @@ public class HelpAndFeedbackServiceImpl implements HelpAndFeedbackService {
 
     public boolean updateHelp(Help help)
     {
+        if(help==null||help.getId()==null){
+            return false;
+        }
+        if(help.getQuestion()==null||help.getAnswer()==null){
+            return false;
+        }
+        if(help.getQuestion().equals("")||help.getAnswer().equals("")){
+            return false;
+        }
         help.setUpdateTime(df.format(new Date()).toString());
-        return  helpMapper.updateHelp(help);
+        return helpMapper.updateHelp(help);
     }
 
     public boolean deleteHelpById(BigInteger id)

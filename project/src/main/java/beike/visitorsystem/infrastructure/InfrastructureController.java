@@ -1,4 +1,4 @@
-package beike.visitorsystem.infrastructure.controller;
+package beike.visitorsystem.infrastructure;
 
 
 import beike.visitorsystem.infrastructure.model.Infrastructure;
