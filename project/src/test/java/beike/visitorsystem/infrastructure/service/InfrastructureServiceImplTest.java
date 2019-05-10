@@ -1,33 +1,25 @@
 package beike.visitorsystem.infrastructure.service;
 
 import beike.visitorsystem.config.WebConfig;
-import beike.visitorsystem.infrastructure.mapper.InfrastructureMapper;
 import beike.visitorsystem.infrastructure.model.Infrastructure;
 import beike.visitorsystem.infrastructure.model.InfrastructureType;
 import beike.visitorsystem.security.SecurityConfig;
-import beike.visitorsystem.utils.GenerateID;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.List;
-
 import static org.junit.Assert.*;
 
 // 使用Spring中的junit
@@ -39,18 +31,19 @@ import static org.junit.Assert.*;
 // 进行事务回滚
 @TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
 @Transactional
-public class InfrastructureServiceImplTest {
+
+public class InfrastructureServiceImplTest extends TestCase {
 
     @Autowired
     private InfrastructureServiceImpl infrastructureService;
 
-    @Before
-    public void setUp() throws Exception {
+    protected void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+        super.setUp();
     }
 
-    @After
-    public void tearDown() throws Exception {
+    protected void tearDown() throws Exception {
+        super.tearDown();
     }
 
     @Test
@@ -89,10 +82,50 @@ public class InfrastructureServiceImplTest {
     }
 
     @Test
+    // 边界测试方法
+    public void addInfrastructure1() {
+        Infrastructure infrastructure = new Infrastructure();
+        //1
+        infrastructure.setTypeId(new BigInteger("2"));
+        infrastructure.setName("芙蓉公社超市");
+        infrastructure.setLongitude(new BigDecimal(180.0));
+        infrastructure.setLatitude(new BigDecimal(24.4389));
+        assertEquals(true,infrastructureService.addInfrastructure(infrastructure));
+        //2
+        infrastructure.setLongitude(new BigDecimal(-180.0));
+        infrastructure.setLatitude(new BigDecimal(24.4389));
+        assertEquals(true,infrastructureService.addInfrastructure(infrastructure));
+        //3
+        infrastructure.setLongitude(new BigDecimal(180.0));
+        infrastructure.setLatitude(new BigDecimal(90.0));
+        assertEquals(true,infrastructureService.addInfrastructure(infrastructure));
+        //4
+        infrastructure.setLongitude(new BigDecimal(180.0));
+        infrastructure.setLatitude(new BigDecimal(-90.0));
+        assertEquals(true,infrastructureService.addInfrastructure(infrastructure));
+        //5
+        infrastructure.setLongitude(new BigDecimal(180.000000001));
+        infrastructure.setLatitude(new BigDecimal(90.0));
+        assertEquals(false,infrastructureService.addInfrastructure(infrastructure));
+        //6
+        infrastructure.setLongitude(new BigDecimal(-180.000000001));
+        infrastructure.setLatitude(new BigDecimal(90.0));
+        assertEquals(false,infrastructureService.addInfrastructure(infrastructure));
+        //7
+        infrastructure.setLongitude(new BigDecimal(180.0));
+        infrastructure.setLatitude(new BigDecimal(90.000000001));
+        assertEquals(false,infrastructureService.addInfrastructure(infrastructure));
+        //8
+        infrastructure.setLongitude(new BigDecimal(180.0));
+        infrastructure.setLatitude(new BigDecimal(-90.000000001));
+        assertEquals(false,infrastructureService.addInfrastructure(infrastructure));
+    }
+
+    @Test
     public void updateInfrastructure() {
         Infrastructure infrastructure = new Infrastructure();
         //1
-        infrastructure.setId(new BigInteger("70097391144640"));
+        infrastructure.setId(new BigInteger("70243316624288"));
         infrastructure.setTypeId(new BigInteger("2"));
         infrastructure.setName(null);
         infrastructure.setLongitude(new BigDecimal(118.0983));
@@ -121,8 +154,33 @@ public class InfrastructureServiceImplTest {
     }
 
     @Test
+    // 边界测试方法
+    public void updateInfrastructure1() {
+        Infrastructure infrastructure = new Infrastructure();
+        //1
+        infrastructure.setId(new BigInteger("70244020265600"));
+        infrastructure.setTypeId(new BigInteger("2"));
+        infrastructure.setName("芙蓉公社超市");
+        infrastructure.setLongitude(new BigDecimal(180.0));
+        infrastructure.setLatitude(new BigDecimal(24.4389));
+        assertEquals(true,infrastructureService.updateInfrastructure(infrastructure));
+        //2
+        infrastructure.setLongitude(new BigDecimal(180.0));
+        infrastructure.setLatitude(new BigDecimal(90.0));
+        assertEquals(true,infrastructureService.updateInfrastructure(infrastructure));
+        //3
+        infrastructure.setLongitude(new BigDecimal(180.000000001));
+        infrastructure.setLatitude(new BigDecimal(90.0));
+        assertEquals(false,infrastructureService.updateInfrastructure(infrastructure));
+        //4
+        infrastructure.setLongitude(new BigDecimal(180.0));
+        infrastructure.setLatitude(new BigDecimal(90.000000001));
+        assertEquals(false,infrastructureService.updateInfrastructure(infrastructure));
+    }
+
+    @Test
     public void deleteInfrastructureById() {
-        assertEquals(true,infrastructureService.deleteInfrastructureById(new BigInteger("70103631615040")));
+        assertEquals(true,infrastructureService.deleteInfrastructureById(new BigInteger("70243316624288")));
         assertEquals(false,infrastructureService.deleteInfrastructureById(new BigInteger("7010363161504")));
     }
 
@@ -159,7 +217,8 @@ public class InfrastructureServiceImplTest {
 
     @Test
     public void deleteInfrastructureType() {
-        assertEquals(true,infrastructureService.deleteInfrastructureType(new BigInteger("70103890424640")));
+        assertEquals(true,infrastructureService.deleteInfrastructureType(new BigInteger("70243496589056")));
         assertEquals(false,infrastructureService.deleteInfrastructureType(new BigInteger("70103890424641")));
     }
+
 }

@@ -80,7 +80,7 @@ public class HelpAndFeedbackServiceImplTest {
         help.setAnswer("Answer-1");
         assertEquals(false,helpAndFeedbackService.updateHelp(help));
         //3
-        help.setId(new BigInteger("70113609472032"));
+        help.setId(new BigInteger("70243572910304"));
         help.setQuestion(null);
         help.setAnswer("Answer-1");
         assertEquals(false,helpAndFeedbackService.updateHelp(help));
@@ -104,7 +104,7 @@ public class HelpAndFeedbackServiceImplTest {
 
     @Test
     public void deleteHelpById() {
-        assertEquals(true,helpAndFeedbackService.deleteHelpById(new BigInteger("70113609472032")));
+        assertEquals(true,helpAndFeedbackService.deleteHelpById(new BigInteger("70243572910304")));
         assertEquals(false,helpAndFeedbackService.deleteHelpById(new BigInteger("70113609472031")));
     }
 }

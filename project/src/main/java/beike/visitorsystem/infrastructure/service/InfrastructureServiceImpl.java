@@ -27,6 +27,7 @@ public class InfrastructureServiceImpl implements InfrastructureService {
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     //OK往一个设施类中添加具体设施(需要设施类id: 可以在controller中把设施类id包装到infrastructure对象里)
+    //往一个设施类中添加具体设施
     public boolean addInfrastructure(Infrastructure infrastructure)
     {
         if(infrastructure.getTypeId()==null||infrastructure.getName()==null||infrastructure.getName().equals("")){
